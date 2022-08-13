@@ -1,5 +1,6 @@
 package com.myhome.android.shoppinglist.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,11 @@ import java.lang.RuntimeException
 
 class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>() {
 
+    private var count = 0
+
+    var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
+    var onShopItemClickListener: ((ShopItem) -> Unit)? = null
+
     var shopList = listOf<ShopItem>()
         set(value) {
             field = value
@@ -18,6 +24,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
+        Log.d("LOGRV", "${++count}")
         val layout = when (viewType) {
             VIEW_TYPE_ENABLED -> R.layout.item_shop_enabled
             VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
@@ -33,7 +40,11 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
             tvName.text = shopItem.name
             tvCount.text = shopItem.count.toString()
             view.setOnLongClickListener {
+                onShopItemLongClickListener?.invoke(shopItem)
                 true
+            }
+            view.setOnClickListener {
+                onShopItemClickListener?.invoke(shopItem)
             }
         }
     }
@@ -57,6 +68,6 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
         const val VIEW_TYPE_ENABLED = 100
         const val VIEW_TYPE_DISABLED = 101
 
-        const val MAX_POOL_SIZE = 20
+        const val MAX_POOL_SIZE = 10
     }
 }
