@@ -97,6 +97,6 @@ class ShopIteViewModel : ViewModel() {
     }
 
     private fun finishWork() {
-        _closeScreen.value
+        _closeScreen.value = Unit
     }
 }
