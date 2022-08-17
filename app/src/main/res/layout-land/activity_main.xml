@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e9e6d1"
+    android:background="@color/background_main"
     tools:context=".presentation.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,7 +25,7 @@
         android:layout_marginEnd="@dimen/margin_xx"
 
         android:layout_marginBottom="@dimen/margin_xx"
-        android:backgroundTint="#aef0d6"
+        android:backgroundTint="@color/backgrount_button"
         android:clickable="true"
         android:contentDescription="@string/add_shop_item_button_text"
         android:focusable="true"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/shop_item_container"

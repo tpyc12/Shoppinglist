@@ -8,7 +8,6 @@ import com.myhome.android.shoppinglist.domain.AddShopItemUseCase
 import com.myhome.android.shoppinglist.domain.EditShopItemUseCase
 import com.myhome.android.shoppinglist.domain.GetShopItemUseCase
 import com.myhome.android.shoppinglist.domain.ShopItem
-import java.lang.NumberFormatException
 
 class ShopIteViewModel : ViewModel() {
 
