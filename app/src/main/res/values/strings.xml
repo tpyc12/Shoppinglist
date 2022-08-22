@@ -5,5 +5,5 @@
     <string name="hint_label_count">Count:</string>
     <string name="save_button">Save</string>
     <string name="error_input_name">Error name</string>
-    <string name="error_input_count">count error</string>
+    <string name="error_input_count">Error count</string>
 </resources>

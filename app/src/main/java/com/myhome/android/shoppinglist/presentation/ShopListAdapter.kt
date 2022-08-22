@@ -2,8 +2,12 @@ package com.myhome.android.shoppinglist.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import com.myhome.android.shoppinglist.R
+import com.myhome.android.shoppinglist.databinding.ItemShopDisabledBinding
+import com.myhome.android.shoppinglist.databinding.ItemShopEnabledBinding
 import com.myhome.android.shoppinglist.domain.ShopItem
 
 class ShopListAdapter :
@@ -18,21 +22,35 @@ class ShopListAdapter :
             VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
             else -> throw RuntimeException("Unknown view type $viewType")
         }
-        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
-        return ShopItemViewHolder(view)
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            layout,
+            parent,
+            false
+        )
+        return ShopItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         val shopItem = getItem(position)
-        with(holder) {
-            tvName.text = shopItem.name
-            tvCount.text = shopItem.count.toString()
-            view.setOnLongClickListener {
+        val binding = holder.binding
+        with(binding) {
+            root.setOnLongClickListener {
                 onShopItemLongClickListener?.invoke(shopItem)
                 true
             }
-            view.setOnClickListener {
+            root.setOnClickListener {
                 onShopItemClickListener?.invoke(shopItem)
+            }
+        }
+        when(binding){
+            is ItemShopEnabledBinding -> {
+                binding.tvName.text = shopItem.name
+                binding.tvCount.text = shopItem.count.toString()
+            }
+            is ItemShopDisabledBinding -> {
+                binding.tvName.text = shopItem.name
+                binding.tvCount.text = shopItem.count.toString()
             }
         }
     }

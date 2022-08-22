@@ -9,7 +9,7 @@ import com.myhome.android.shoppinglist.domain.EditShopItemUseCase
 import com.myhome.android.shoppinglist.domain.GetShopItemUseCase
 import com.myhome.android.shoppinglist.domain.ShopItem
 
-class ShopIteViewModel : ViewModel() {
+class ShopItemViewModel : ViewModel() {
 
     private val repository = ShopListRepositoryImpl
 
