@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.myhome.android.shoppinglist.R
 import com.myhome.android.shoppinglist.databinding.ActivityMainBinding
+import com.myhome.android.shoppinglist.domain.ShopItem
 import javax.inject.Inject
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
@@ -46,14 +48,30 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
                 launchFragment(ShopItemFragment.newInstanceAddItem())
             }
         }
-        contentResolver.query(
-            Uri.parse("content://com.myhome.android.shoppinglist/shop_items/2"),
-            null,
-            null,
-            null,
-            null,
-            null,
-        )
+        thread {
+            val cursor = contentResolver.query(
+                Uri.parse("content://com.myhome.android.shoppinglist/shop_items"),
+                null,
+                null,
+                null,
+                null,
+                null,
+            )
+            while (cursor?.moveToNext() == true) {
+                val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+                val count = cursor.getInt(cursor.getColumnIndexOrThrow("count"))
+                val enabled = cursor.getInt(cursor.getColumnIndexOrThrow("enabled")) > 0
+                val shopItem = ShopItem(
+                    name = name,
+                    count = count,
+                    enabled = enabled,
+                    id = id
+                )
+                Log.d("MainActivity", shopItem.toString())
+            }
+            cursor?.close()
+        }
     }
 
     private fun launchFragment(fragment: Fragment) {
