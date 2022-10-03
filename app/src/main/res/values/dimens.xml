@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_xx">16dp</dimen>
+    <dimen name="text_size_xx">16sp</dimen>
+    <dimen name="margin_x">8dp</dimen>
+    <dimen name="margin_half_x">4dp</dimen>
+    <dimen name="margin_1dp">1dp</dimen>
+    <dimen name="margin_zero">0dp</dimen>
+</resources>
